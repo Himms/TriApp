@@ -57,7 +57,7 @@ export default function Register() {
           `INSERT INTO register (rno, names, address, phone, chasis, nin, date) VALUES (?,?,?,?,?,?,?)`,
           [rno, names, address, phone, chasis, nin, ddate],
           (sqlTxn, res) => {
-            console.log(`rno ${rno} and date ${date} added successfully`);
+            console.log(`rno ${rno} and date ${ddate} added successfully`);
           },
           error => {
             console.log("error on adding Admin " + error.message);
