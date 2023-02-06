@@ -17,13 +17,13 @@ export default function Admin({navigation}) {
          <TouchableOpacity style={styles.but} onPress={()=> {navigation.navigate('Update')}}>
              <Text style={{textAlign:'center', padding:10, color:'white', fontSize:20, }} >Tax Payment</Text>
          </TouchableOpacity>
-         <TouchableOpacity style={styles.but} onPress={()=> {navigation.navigate('Update')}}>
+         <TouchableOpacity style={styles.but} onPress={()=> {navigation.navigate('Record')}}>
              <Text style={{textAlign:'center', padding:10, color:'white', fontSize:20, }} >Tricycle Record</Text>
          </TouchableOpacity>
          <TouchableOpacity style={styles.but} onPress={()=> {navigation.navigate('Staff')}}>
              <Text style={{textAlign:'center', padding:10, color:'white', fontSize:20, }} >Register Staff</Text>
          </TouchableOpacity>
-         <TouchableOpacity style={styles.but} onPress={()=> {navigation.navigate('Staff')}}>
+         <TouchableOpacity style={styles.but} onPress={()=> {navigation.navigate('Users')}}>
              <Text style={{textAlign:'center', padding:10, color:'white', fontSize:20, }} >Staff Record</Text>
          </TouchableOpacity>
     </View>

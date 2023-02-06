@@ -7,7 +7,6 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import * as SQLite from 'expo-sqlite';
 
 
-
 const db = SQLite.openDatabase("db.db");
 
 
@@ -26,17 +25,21 @@ export default function Update() {
     setDatePicker(false);
   };
 
-  const [rnodbb, setRnodb ] = useState('');
-  const [namesdb, setNames ] = useState('');
-  const [addressdb, setAddress] = useState('');
-  const [phonedb, setPhone] = useState('');
-  const [chasisdb, setChasis] = useState('');
-  const [nindb, setNin] = useState('');
+  const [rno, setRnodb ] = useState('');
+  const [names, setNamesdb ] = useState('');
+  const [address, setAddressdb] = useState('');
+  const [phone, setPhonedb] = useState('');
+  const [chasis, setChasisdb] = useState('');
+  const [nin, setNindb] = useState('');
   const [transaction, setTransaction] = useState('');
   const [ wAmount, setWamount] = useState('');
   const [ nAmount, setNamount] = useState('');
-  let [rno, setRno ] = useState('');
-  const  ddate = date.toDateString();
+  let [rnou, setRnou ] = useState('');
+  const  dddate = date.toDateString()
+
+
+ 
+
    
  /*
   const createTables = () => {
@@ -58,6 +61,25 @@ export default function Update() {
     }, []);
   
  */
+
+    const addUpdate = () => {
+      db.transaction(txn => {
+          txn.executeSql(
+            `INSERT INTO updated (urno, unames, uaddress, uphone, uchasis, unin, utransaction, uwamount, unamount, udate) VALUES (?,?,?,?,?,?,?,?,?,?)`,
+             [rno, names, address, phone, chasis, nin, transaction, wAmount, nAmount, dddate],
+            (sqlTxn, res) => {
+              console.log(`rno ${rno} and date ${dddate} and amount ${nAmount} added successfully`);
+              alert('Record added successfully');
+            },
+            error => {
+              console.log([rno, names, address, phone, chasis, nin, transaction, wAmount, nAmount, dddate,])
+              console.log("error on adding Update " + error.message);
+              alert('Record already exist');
+            },
+          );
+        });
+      };
+
   const getRegister = () => {
 
     db.transaction(txn => {
@@ -68,26 +90,26 @@ export default function Update() {
          // alert(rno);
           console.log("retrieved Register record successfully");
           let len = res.rows.length;
-    
+        
           if (len > 0) {
             let results = [];
             for (let i = 0; i < len; i++) {
               let rnodb = res.rows.item(i).rno;
-             // alert(rnodb)
-              //  alert(rno);
-              if(rnodb===rno) {
-              let rnodbb = res.rows.item(i).rno;
-              let namesdb = res.rows.item(i).names;
+              console.log(rnodb)
+              console.log(rnou)
+              if(rnodb===rnou) {
+              const rnodbb = res.rows.item(i).rno;
+              const namesdb = res.rows.item(i).names;
               //alert(namesdb);
-              let addressdb = res.rows.item(i).address;
-              let phonedb = res.rows.item(i).phone;
-              let chasisdb = res.rows.item(i).chasis;
-              let nindb = res.rows.item(i).nin;
-              setNames(namesdb);
-              setAddress(addressdb);
-              setPhone(phonedb);
-              setChasis(chasisdb);
-              setNin(nindb);
+              const addressdb = res.rows.item(i).address;
+              const phonedb = res.rows.item(i).phone;
+              const chasisdb = res.rows.item(i).chasis;
+              const nindb = res.rows.item(i).nin;
+              setNamesdb(namesdb);
+              setAddressdb(addressdb);
+              setPhonedb(phonedb);
+              setChasisdb(chasisdb);
+              setNindb(nindb);
               setRnodb(rnodbb);
 
             }
@@ -95,35 +117,20 @@ export default function Update() {
           }
         },
         error => {
-          console.log("error on getting Staff " + error.message);
+          console.log("error on getting Register " + error.message);
         },
       );
     });
     }; 
    
-    
-    const addUpdate = () => {
-      db.transaction(txn => {
-          txn.executeSql(
-            `INSERT INTO update (urno, unames, uaddress, uphone, uchasis, unin, utransaction, uwamount, unamount, udate) VALUES (?,?,?,?,?,?,?,?,?,?)`,
-           // ['KDNT0001', 'ANAS ABDULMALIK', '1 Zambia Road Barnawa, Kaduna', '09090909090', 'CNZ09834876HJ98KL', '671235467667', 'FBN001', 'TEN Thousand Naira', '10000', 'Fri Feb 03 2023'],
-              [rnodbb, namesdb, addressdb, phonedb, chasisdb, nindb, transaction, wAmount, nAmount, ddate],
-            (sqlTxn, res) => {
-              console.log(`rno ${rnodbb} and date ${ddate} and amount ${nAmount} added successfully`);
-            },
-            error => {
-              console.log("error on adding Update " + error.message);
-            },
-          );
-        });
-      };
-  
+   
+   
      
-      console.log(rnodbb)
-      console.log(transaction)
+     // console.log(rno)
+     // console.log(transaction)
        //alert(namesdb)
-       console.log(ddate)
-       console.log(chasisdb)
+     //  console.log(dddate)
+      // console.log(chasisdb)
    
   
   return (
@@ -133,7 +140,7 @@ export default function Update() {
       <Header />
       <Text style={{color:'black', fontSize:15,}}> Search Record </Text> 
       <TextInput 
-       value={rno.toUpperCase()} onChangeText={setRno}
+       value={rnou.toUpperCase()} onChangeText={setRnou}
        placeholder='Enter Registration Number'
        style={styles.input}/>
       <TouchableOpacity style={styles.but} onPress={getRegister} >
@@ -143,37 +150,35 @@ export default function Update() {
        <Text style={{color:'black', fontSize:15,}}> Registration Number </Text>
        <TextInput 
        editable={false}
-       value={rnodbb.toUpperCase()} onChangeText={setRnodb}
+       value={rno.toUpperCase()}  
        placeholder='Enter Registration Number'
        style={styles.input}/>
        <Text style={{color:'black', fontSize:15,}}> Name of Owner </Text>
        <TextInput 
-       value={namesdb} onChangeText={setNames}
+       value={names}  onChangeText={setNamesdb}
         placeholder='Name'
         style={styles.input}/>
       <Text style={{color:'black', fontSize:15,}}> Address</Text>
        <TextInput 
-       value={addressdb} onChangeText={setAddress}
+       value={address} onChangeText={setAddressdb}
         placeholder='Address'
         style={styles.input}/>
       <Text style={{color:'black', fontSize:15,}}> Phone Number</Text>
        <TextInput 
-       value={phonedb} onChangeText={setPhone}
+       value={phone} onChangeText={setPhonedb}
         placeholder='Phone Number'
         style={styles.input}/>
      <Text style={{color:'black', fontSize:15,}}> Chasis Number </Text>
       <TextInput 
       placeholder='Chasis Number'
-      value={chasisdb} onChangeText={setChasis}
-     
+      value={chasis}  onChangeText={setChasisdb}
       style={styles.input}/>
     <Text style={{color:'black', fontSize:15,}}> NIN Number </Text>
       <TextInput 
       //placeholder='NIN Number'
-      value={nindb} onChangeText={setNin}
-      
+      value={nin}  onChangeText={setNindb}
       style={styles.input}/>
-    <Text style={{color:'black', fontSize:15,}}> Transaction Number(ID)</Text>
+    <Text style={{color:'black', fontSize:15,}}> Transaction ID</Text>
      <TextInput 
      value={transaction.toUpperCase()} onChangeText={setTransaction}
      placeholder='Enter Transaction ID'

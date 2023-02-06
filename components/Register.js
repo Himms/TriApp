@@ -58,8 +58,10 @@ export default function Register() {
           [rno, names, address, phone, chasis, nin, ddate],
           (sqlTxn, res) => {
             console.log(`rno ${rno} and date ${ddate} added successfully`);
+            alert('Record added successfully');
           },
           error => {
+            alert('Record already exist');
             console.log("error on adding Admin " + error.message);
           },
         );

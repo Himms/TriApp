@@ -11,7 +11,7 @@ export default function Welcome({navigation}) {
      <Image source={require('./../assets/baj.jpg')} style={{marginTop:40,marginBottom:20, alignSelf:'center', width:'100%', height:250, }}  />
         <Text style= {styles.text} > Welcome! </Text>
         <TouchableOpacity style={styles.but}>
-                    <Text style={{textAlign:'center', padding:10, color:'white', fontSize:20, }}>Click to Scan</Text>
+                    <Text style={{textAlign:'center', padding:10, color:'white', fontSize:20, }} onPress={()=>{navigation.navigate('Scan')}}>Click to Scan</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.but}>
                     <Text style={{textAlign:'center',padding:10,  color:'white', fontSize:20,  }} onPress={()=> {navigation.navigate('Login')}}>Logout</Text>
