@@ -13,7 +13,6 @@ const db = SQLite.openDatabase("db.db");
 export default function Update() {
 
   const [datePicker, setDatePicker] = useState(false);
-
   const [date, setDate] = useState(new Date());
 	
  function showDatePicker() {
@@ -45,13 +44,22 @@ export default function Update() {
   const createTables = () => {
     db.transaction(txn => {
       txn.executeSql(
-        `CREATE TABLE IF NOT EXISTS updated (id INTEGER PRIMARY KEY AUTOINCREMENT, urno VARCHAR(200), unames VARCHAR(200), uaddress VARCHAR(200), uphone VARCHAR(200), uchasis VARCHAR(200), unin VARCHAR(200), utransaction VARCHAR(200) NOT NULL UNIQUE, uwamount VARCHAR(200), unamount VARCHAR(200), udate VARCHAR(200))`,
+        `CREATE TABLE IF NOT EXISTS updated (id INTEGER PRIMARY KEY AUTOINCREMENT, urno VARCHAR(200) NOT NULL UNIQUE, unames VARCHAR(200), uaddress VARCHAR(200), uphone VARCHAR(200), uchasis VARCHAR(200), unin VARCHAR(200), utransaction VARCHAR(200), uwamount VARCHAR(200), unamount VARCHAR(200), udate VARCHAR(200))`,
         [],
         (sqlTxn, res) => {
           console.log("Update table created successfully");
         },
         error => {
           console.log("error on creating Update table " + error.message);
+           db.transaction(
+                  (tx) => {
+                    tx.executeSql(`update up set done = 1 where id = ?;`, [
+                      id,
+                    ]);
+                  },
+                  null,
+                )
+
         },
       );
     });
@@ -63,6 +71,12 @@ export default function Update() {
  */
 
     const addUpdate = () => {
+
+      // start Here
+      
+
+
+      // stops Here
       db.transaction(txn => {
           txn.executeSql(
             `INSERT INTO updated (urno, unames, uaddress, uphone, uchasis, unin, utransaction, uwamount, unamount, udate) VALUES (?,?,?,?,?,?,?,?,?,?)`,
@@ -155,6 +169,7 @@ export default function Update() {
        style={styles.input}/>
        <Text style={{color:'black', fontSize:15,}}> Name of Owner </Text>
        <TextInput 
+        autoCapitalize='characters'
        value={names}  onChangeText={setNamesdb}
         placeholder='Name'
         style={styles.input}/>
@@ -169,7 +184,9 @@ export default function Update() {
         placeholder='Phone Number'
         style={styles.input}/>
      <Text style={{color:'black', fontSize:15,}}> Chasis Number </Text>
+     
       <TextInput 
+      autoCapitalize='characters'
       placeholder='Chasis Number'
       value={chasis}  onChangeText={setChasisdb}
       style={styles.input}/>
@@ -182,6 +199,7 @@ export default function Update() {
      <TextInput 
      value={transaction.toUpperCase()} onChangeText={setTransaction}
      placeholder='Enter Transaction ID'
+     autoCapitalize='characters'
      style={styles.input}/>
      <Text style={{color:'black', fontSize:15,}}> Amount in Words</Text>
      <TextInput 

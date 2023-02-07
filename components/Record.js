@@ -14,6 +14,23 @@ export default function Record() {
 
 
   const [records, setRecords] = useState([]);
+ // const [amounty, setAmounty] = useState([]);
+
+
+ const deleteUser = () => {
+    db.transaction(txn => {
+        txn.executeSql(
+          `DELETE FROM updated`,
+           [],
+          (sqlTxn, res) => {
+            console.log(`rno ${'de'} deleted  successfully`);
+          },
+          error => {
+            console.log("error on adding Update " + error.message);
+          },
+        );
+      });
+    };
     
   
  
@@ -36,10 +53,59 @@ export default function Record() {
                  // results.push({ id: item.id, rno: item.urno, name: item.unames,  address: item.uaddress, phone:item.uphone,  chasis: item.uchasis, nin: item.unin, transaction: item.utransaction,  wamount: item.uwamount, namount: item.unamount, ddate: item.udate});
                 // results.push([  item.urno,  item.unames,  item.uaddress,  item.uphone,  item.uchasis, item.unin, item.utransaction,  item.uwamount, item.unamount, item.udate]);
                  results.push(item)
+                 let rnoo = res.rows.item(i).urno;
+
+
+                
+
+          /*      db.transaction(txn => {
+                    txn.executeSql(
+                     // `SELECT * FROM Updated where urno=?`,
+                     // [rnoo],
+                     `SELECT * FROM Updated`,
+                      (sqlTxn, res) => {
+                       // alert(rno);
+                        console.log("retrieved Updated record successfully");
+                        let len = res.rows.length;
+                      
+                        if (len > 0) {
+                          let resultss = [];
+                          var money = 0;
+                          for (let i = 0; i < len; i++) {
+                            let rnodb = res.rows.item(i).urno;
+                            console.log(rnoo);
+                            
+                          //  if(rnoo===rnodb) {
+        
+                            let amountdb = res.rows.item(i).unamount;
+                            let datedb = res.rows.item(i).udate;
+        
+                            money = Number(amountdb) + Number(money);
+                            console.log(amountdb, datedb);
+                           
+                            resultss.push(item)
+                              
+                        //  }
+                          
+                          }
+                          console.log(money);
+                         // setAmounty(resultss);
+                        }
+                        
+                      },
+                      error => {
+                        console.log("error on getting Register " + error.message);
+                
+        
+                      },
+                    );
+                  }); */
                 }
                 setRecords(results);
+               
                 console.log(results);
-               //console.log(setRecords);
+               
+
               }
           }
         },
@@ -67,7 +133,6 @@ export default function Record() {
             <Text>NIN No: {item.unin}</Text>
             <Text>Balance: {item.unamount}</Text>
             <Text>Last Tax Date: {item.udate}</Text>
-            
           </View>
         );
       };
@@ -88,12 +153,16 @@ export default function Record() {
       <Text style={{color:'black', fontSize:20, marginTop:10, borderBottomWidth: 1,}}> Tricycle Record </Text> 
       <FlatList
         data={records}
+       // data={amounty}
         renderItem={renderCategory}
         key={cat => cat.id}
+         
       />
        
 
-        
+       <TouchableOpacity style={styles.but}  onPress={deleteUser}>
+          <Text style={{textAlign:'center',padding:10,  color:'white', fontSize:20,  }} >Delete</Text>
+      </TouchableOpacity> 
         
    
         
@@ -120,5 +189,19 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     textAlign: 'center'
   },
+
+  but: {
+    height:50,
+    borderRadius:5,
+    borderWidth:1,
+    width:'90%',
+    alignContent:'center',
+    margin:10,
+    alignItems: 'center',
+    textAlign: 'center',
+    backgroundColor:'orange',
+    
+  },
+
 
 });

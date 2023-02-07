@@ -118,11 +118,13 @@ db.transaction(txn => {
       <View />
       
       <TextInput 
+      autoCapitalize='characters'
       value={rno.toUpperCase()} onChangeText={setRno}
        placeholder='Enter Registration Number'
        style={styles.input}/>
 
       <TextInput 
+       autoCapitalize='characters'
       value={names.toUpperCase()} onChangeText={setNames}
        placeholder='Enter Name'
        style={styles.input}/>
@@ -138,6 +140,7 @@ db.transaction(txn => {
       style={styles.input}/>
 
       <TextInput 
+      autoCapitalize='characters'
       placeholder='Enter Chasis Number'
       value={chasis.toUpperCase()} onChangeText={setChasis}
        style={styles.input}/>

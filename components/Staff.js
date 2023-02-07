@@ -17,7 +17,7 @@ export default function Staff({navigation}) {
     const [password, setPassword ] = useState('');
    
 
-
+/*
     const createTables = () => {
         db.transaction(txn => {
           txn.executeSql(
@@ -32,7 +32,7 @@ export default function Staff({navigation}) {
           );
         });
       };
-
+      */
       const addStaff = () => {
         if (!names || !username || !password) {
           alert("Enter all Fields");

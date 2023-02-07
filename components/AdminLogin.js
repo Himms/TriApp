@@ -16,7 +16,7 @@ export default function AdminLogin({navigation}) {
     const [usernamedb, setUsernamedb ] = useState('');
     const [passworddb, setPassworddb ] = useState('');
 
-  /*   const createTables = () => {
+     const createTables = () => {
         db.transaction(txn => {
           txn.executeSql(
             `CREATE TABLE IF NOT EXISTS admin (id INTEGER PRIMARY KEY AUTOINCREMENT,  username VARCHAR(100), password VARCHAR(100))`,
@@ -45,7 +45,7 @@ export default function AdminLogin({navigation}) {
             );
           });
         };
-        */
+        
 
   const getAdmin = () => {
     db.transaction(txn => {
@@ -80,12 +80,12 @@ export default function AdminLogin({navigation}) {
       );
     });
   };
-/*
+
         useEffect(() => {
              createTables();
              addAdmin();
          }, []);
-    */
+    
 
   return (
     <KeyboardAvoidingWrapper>
