@@ -4,10 +4,10 @@ import { Text, View, TouchableOpacity, Image, TextInput, StyleSheet } from 'reac
 import KeyboardAvoidingWrapper from './../components/KeyboardAvoidingWrapper';
 import * as SQLite from 'expo-sqlite';
 import Constants from "expo-constants";
+import Record from './Record';
 
 
 const db = SQLite.openDatabase("db.db");
-
 
 
 export default function Staff({navigation}) {
@@ -17,7 +17,7 @@ export default function Staff({navigation}) {
     const [password, setPassword ] = useState('');
    
 
-/*
+
     const createTables = () => {
         db.transaction(txn => {
           txn.executeSql(
@@ -32,7 +32,8 @@ export default function Staff({navigation}) {
           );
         });
       };
-      */
+      
+      
       const addStaff = () => {
         if (!names || !username || !password) {
           alert("Enter all Fields");
@@ -45,7 +46,7 @@ export default function Staff({navigation}) {
               [names, username, password],
               (sqlTxn, res) => {
                 console.log(`${username} username added successfully`);
-                
+                alert('Record successfully added');
               },
               error => {
                 console.log("error on adding Staff " + error.message);
@@ -53,9 +54,12 @@ export default function Staff({navigation}) {
             );
           });
         };
-
-       
-
+        
+        useEffect(() => {
+          createTables()
+         // addStaff();           
+         }, []);
+         
     
 
   return (

@@ -40,7 +40,7 @@ export default function Update() {
  
 
    
- /*
+ 
   const createTables = () => {
     db.transaction(txn => {
       txn.executeSql(
@@ -65,10 +65,10 @@ export default function Update() {
     });
   };
   useEffect(() => {
-                
+     createTables();           
     }, []);
   
- */
+ 
 
     const addUpdate = () => {
 

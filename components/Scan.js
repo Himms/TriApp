@@ -22,6 +22,15 @@ export default function Scan({navigation}) {
     setDate(value);
     setDatePicker(false);
   };
+
+
+
+
+  // logout
+
+
+
+  //end logout
   
         const [hasPermission, setHasPermission] = useState(null);
         const [scanned, setScanned] = useState(false);
@@ -38,26 +47,22 @@ export default function Scan({navigation}) {
                // alert(rno);
                 console.log("retrieved Updated record successfully");
                 let len = res.rows.length;
-              
+                let money = 0;
+                
                 if (len > 0) {
                   let results = [];
-                  var money = '0.0';
-                  parseFloat(money);
                   for (let i = 0; i < len; i++) {
-                    let rnodb = res.rows.item(i).urno;
-                    
+                    let rnodb = res.rows.item(i).urno; 
                     if(rnodb===text) {
-
                     let amountdb = res.rows.item(i).unamount;
                     let datedb = res.rows.item(i).udate;
 
-                    money = parseFloat(amountdb) + Number(money);
+                    money = Number(amountdb) + Number(money);
                    // console.log( amountdb, datedb );
                    console.log( money );
                     if(ddate != datedb ) {
-                      let balan =0;
-                       balan = money - 100.0;
-                       console.log( bal);
+                    let balan = money - 100.0;
+                       console.log( balan);
                       db.transaction((tx) => {
                         tx.executeSql(
                           'UPDATE updated set unamount=?, udate=?  where urno=?',

@@ -32,7 +32,7 @@ export default function Register() {
   const [nin, setNin] = useState('');
  
 
- /* const createTables = () => {
+  const createTables = () => {
     db.transaction(txn => {
       txn.executeSql(
         `CREATE TABLE IF NOT EXISTS register (id INTEGER PRIMARY KEY AUTOINCREMENT, rno VARCHAR(200) NOT NULL UNIQUE, names VARCHAR(200), address VARCHAR(200), phone VARCHAR(200), chasis VARCHAR(200), nin VARCHAR(200), date VARCHAR(200))`,
@@ -46,7 +46,7 @@ export default function Register() {
       );
     });
   };
-  */
+  
 
  const  ddate = date.toDateString();
  //alert(ddate);
@@ -102,12 +102,12 @@ db.transaction(txn => {
   );
 });
 }; 
-
+*/
     useEffect(() => {
-     //    createTables();
+        createTables();
        //  addRegister();
      }, []);
-*/
+
 
 
   return (
